@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMDesktopUI", "RMDesktopUI\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMDataManager.Library", "RMDataManager.Library\RMDataManager.Library.csproj", "{8498B84A-D6FE-4E55-9F4D-3E4F8F2D02EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMDektopUI.Library", "RMDektopUI.Library\RMDektopUI.Library.csproj", "{9828F369-0024-47F9-829A-651DF317BE7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{8498B84A-D6FE-4E55-9F4D-3E4F8F2D02EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8498B84A-D6FE-4E55-9F4D-3E4F8F2D02EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8498B84A-D6FE-4E55-9F4D-3E4F8F2D02EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9828F369-0024-47F9-829A-651DF317BE7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9828F369-0024-47F9-829A-651DF317BE7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9828F369-0024-47F9-829A-651DF317BE7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9828F369-0024-47F9-829A-651DF317BE7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

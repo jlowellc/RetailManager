@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using RMDektopUI.Library.Api;
+using RMDektopUI.Library.Models;
 using RMDesktopUI.Helpers;
 using RMDesktopUI.ViewModels;
 using System;
@@ -31,6 +33,7 @@ namespace RMDesktopUI
 
 			_container
 				.Singleton<IWindowManager, WindowManager>()
+				.Singleton<ILoggedInUserModel, LoggedInUserModel>()
 				.Singleton<IEventAggregator, EventAggregator>()
 				.Singleton<IAPIHelper, APIHelper>();
 
