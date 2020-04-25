@@ -12,15 +12,14 @@ namespace RMDesktopUI.ViewModels
 {
 	public class SalesViewModel : Screen
 	{
-		IProductEndpoint _productEndpoint;
-		IConfigHelper _configHelper;
+		private IProductEndpoint _productEndpoint;
+		private IConfigHelper _configHelper;
 
 		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
 		{
 			_productEndpoint = productEndpoint;
 			_configHelper = configHelper;
 		}
-
 
 		protected override async void OnViewLoaded(object view)
 		{
