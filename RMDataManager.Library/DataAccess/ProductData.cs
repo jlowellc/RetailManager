@@ -2,6 +2,7 @@
 using RMDataManager.Library.Models;
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RMDataManager.Library.DataAccess
 {
@@ -11,8 +12,17 @@ namespace RMDataManager.Library.DataAccess
 		{
 			SqlDataAccess sql = new SqlDataAccess();
 
-			// TODO this could be an error
-			List<ProductModel> output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_GetAll", new { }, "RMData");
+			var output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_GetAll", new { }, "RMData");
+
+			return output;
+		}
+
+		public ProductModel GetProductById(int productId)
+		{
+			SqlDataAccess sql = new SqlDataAccess();
+
+			var output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_GetById", new { Id = productId }, "RMData")
+				.FirstOrDefault();
 
 			return output;
 		}

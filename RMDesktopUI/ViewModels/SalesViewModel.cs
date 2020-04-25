@@ -12,12 +12,14 @@ namespace RMDesktopUI.ViewModels
 {
 	public class SalesViewModel : Screen
 	{
-		private IProductEndpoint _productEndpoint;
-		private IConfigHelper _configHelper;
+		IProductEndpoint _productEndpoint;
+		ISaleEndpoint _saleEndpoint;
+		IConfigHelper _configHelper;
 
-		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
+		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper, ISaleEndpoint saleEndpoint)
 		{
 			_productEndpoint = productEndpoint;
+			_saleEndpoint = saleEndpoint;
 			_configHelper = configHelper;
 		}
 
@@ -168,6 +170,7 @@ namespace RMDesktopUI.ViewModels
 			NotifyOfPropertyChange(() => SubTotal);
 			NotifyOfPropertyChange(() => Tax);
 			NotifyOfPropertyChange(() => Total);
+			NotifyOfPropertyChange(() => CanCheckOut);
 		}
 
 		public bool CanRemoveFromCart
@@ -187,6 +190,7 @@ namespace RMDesktopUI.ViewModels
 			NotifyOfPropertyChange(() => SubTotal);
 			NotifyOfPropertyChange(() => Tax);
 			NotifyOfPropertyChange(() => Total);
+			NotifyOfPropertyChange(() => CanCheckOut);
 		}
 
 		public bool CanCheckOut
@@ -196,13 +200,30 @@ namespace RMDesktopUI.ViewModels
 				bool output = false;
 
 				// TODO: Make sure there is something in the cart
+				if (Cart.Count > 0)
+				{
+					output = true;
+				}
 
 				return output;
 			}
 		}
 
-		public void CheckOut()
+		public async Task CheckOut()
 		{
+			// Create a SaleModel and Post to API
+			SaleModel sale = new SaleModel();
+
+			foreach (var item in Cart)
+			{
+				sale.SaleDetails.Add(new SaleDetailModel
+				{
+					ProductId = item.Product.Id,
+					Quantity = item.QunatityInCart
+				});
+			}
+
+			await _saleEndpoint.PostSale(sale);
 		}
 	}
 }
