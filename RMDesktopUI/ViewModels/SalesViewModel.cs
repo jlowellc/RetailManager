@@ -4,6 +4,7 @@ using RMDektopUI.Library.Api;
 using RMDektopUI.Library.Models;
 
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RMDesktopUI.ViewModels
@@ -38,9 +39,22 @@ namespace RMDesktopUI.ViewModels
 			}
 		}
 
-		private BindingList<ProductModel> _cart;
+		private ProductModel _selectedProduct;
 
-		public BindingList<ProductModel> Cart
+		public ProductModel SelectedProduct
+		{
+			get => _selectedProduct;
+			set
+			{
+				_selectedProduct = value;
+				NotifyOfPropertyChange(() => SelectedProduct);
+				NotifyOfPropertyChange(() => CanAddToCart);
+			}
+		}
+
+		private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
+
+		public BindingList<CartItemModel> Cart
 		{
 			get => _cart;
 			set
@@ -50,7 +64,7 @@ namespace RMDesktopUI.ViewModels
 			}
 		}
 
-		private int _itemQuantity;
+		private int _itemQuantity = 1;
 
 		public int ItemQuantity
 		{
@@ -59,10 +73,24 @@ namespace RMDesktopUI.ViewModels
 			{
 				_itemQuantity = value;
 				NotifyOfPropertyChange(() => ItemQuantity);
+				NotifyOfPropertyChange(() => CanAddToCart);
 			}
 		}
 
-		public string SubTotal => "$0.00";          // TODO - Replace with calculation
+		public string SubTotal
+		{
+			get
+			{
+				decimal subTotal = 0;
+
+				foreach (var item in Cart)
+				{
+					subTotal += (item.Product.RetailPrice * item.QunatityInCart);
+				}
+
+				return subTotal.ToString("C");          // TODO - Replace with calculation
+			}
+		}
 
 		public string Tax => "$0.00";       // TODO - Replace with calculation
 
@@ -74,8 +102,10 @@ namespace RMDesktopUI.ViewModels
 			{
 				bool output = false;
 
-				// TODO: Make sure something is selected
-				// TODO: Make sure there is an item quantity
+				if (ItemQuantity > 0 && SelectedProduct?.QuantityInStock >= ItemQuantity)
+				{
+					output = true;
+				}
 
 				return output;
 			}
@@ -83,6 +113,29 @@ namespace RMDesktopUI.ViewModels
 
 		public void AddToCart()
 		{
+			CartItemModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
+
+			if (existingItem != null)
+			{
+				existingItem.QunatityInCart += ItemQuantity;
+
+				// HACK: There should be a better way of refreshing the cart display of quantity +/- to item in cart
+				Cart.Remove(existingItem);
+				Cart.Add(existingItem);
+			}
+			else
+			{
+				CartItemModel item = new CartItemModel
+				{
+					Product = SelectedProduct,
+					QunatityInCart = ItemQuantity
+				};
+				Cart.Add(item);
+			}
+
+			SelectedProduct.QuantityInStock -= ItemQuantity;
+			ItemQuantity = 1;
+			NotifyOfPropertyChange(() => SubTotal);
 		}
 
 		public bool CanRemoveFromCart
@@ -99,6 +152,7 @@ namespace RMDesktopUI.ViewModels
 
 		public void RemoveFromCart()
 		{
+			NotifyOfPropertyChange(() => SubTotal);
 		}
 
 		public bool CanCheckOut
