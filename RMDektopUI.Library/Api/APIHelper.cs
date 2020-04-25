@@ -1,4 +1,5 @@
-﻿using RMDektopUI.Library.Models;
+﻿using RMDesktopUI.Library.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace RMDektopUI.Library.Api
+namespace RMDesktopUI.Library.Api
 {
 	public class APIHelper : IAPIHelper
 	{

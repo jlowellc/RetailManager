@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using RMDektopUI.Library.Api;
+using RMDesktopUI.Library.Api;
 using RMDesktopUI.Helpers;
 using System;
 using System.Collections.Generic;

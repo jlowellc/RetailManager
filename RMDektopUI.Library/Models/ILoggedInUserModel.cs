@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RMDektopUI.Library.Models
+namespace RMDesktopUI.Library.Models
 {
 	public interface ILoggedInUserModel
 	{

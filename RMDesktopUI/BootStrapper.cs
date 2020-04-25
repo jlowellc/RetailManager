@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
-using RMDektopUI.Library.Api;
-using RMDektopUI.Library.Models;
+using RMDesktopUI.Library.Api;
+using RMDesktopUI.Library.Models;
 using RMDesktopUI.Helpers;
 using RMDesktopUI.ViewModels;
 using System;

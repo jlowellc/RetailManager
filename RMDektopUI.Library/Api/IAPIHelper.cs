@@ -1,7 +1,7 @@
-﻿using RMDektopUI.Library.Models;
+﻿using RMDesktopUI.Library.Models;
 using System.Threading.Tasks;
 
-namespace RMDektopUI.Library.Api
+namespace RMDesktopUI.Library.Api
 {
 	public interface IAPIHelper
 	{
