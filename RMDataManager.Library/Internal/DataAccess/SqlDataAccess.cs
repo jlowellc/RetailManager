@@ -1,12 +1,10 @@
 ﻿using Dapper;
-using System;
+
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RMDataManager.Library.Internal.DataAccess
 {
@@ -28,6 +26,7 @@ namespace RMDataManager.Library.Internal.DataAccess
 				return rows;
 			}
 		}
+
 		public void SaveData<T>(string storedProcedure, T parameters, string ConnectionStringName)
 		{
 			string connectionString = GetConnectionString(ConnectionStringName);

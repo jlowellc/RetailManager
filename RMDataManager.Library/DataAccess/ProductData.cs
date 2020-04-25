@@ -5,15 +5,14 @@ using System.Collections.Generic;
 
 namespace RMDataManager.Library.DataAccess
 {
-	public class UserData
+	public class ProductData
 	{
-		public List<UserModel> GetUserbyId(string Id)
+		public List<ProductModel> GetProducts()
 		{
 			SqlDataAccess sql = new SqlDataAccess();
 
-			var p = new { Id };
-
-			var output = sql.LoadData<UserModel, dynamic>("dbo.spUserLookup", p, "RMData");
+			// TODO this could be an error
+			List<ProductModel> output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_GetAll", new { }, "RMData");
 
 			return output;
 		}

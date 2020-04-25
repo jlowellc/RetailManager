@@ -2,10 +2,10 @@ using System;
 
 namespace RMDataManager.Areas.HelpPage.ModelDescriptions
 {
-    public class ParameterAnnotation
-    {
-        public Attribute AnnotationAttribute { get; set; }
+	public class ParameterAnnotation
+	{
+		public Attribute AnnotationAttribute { get; set; }
 
-        public string Documentation { get; set; }
-    }
+		public string Documentation { get; set; }
+	}
 }

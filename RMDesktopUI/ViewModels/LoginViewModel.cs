@@ -1,12 +1,10 @@
 ﻿using Caliburn.Micro;
-using RMDesktopUI.Library.Api;
-using RMDesktopUI.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using RMDesktopUI.EventModels;
+using RMDesktopUI.Library.Api;
+
+using System;
+using System.Threading.Tasks;
 
 namespace RMDesktopUI.ViewModels
 {
@@ -26,8 +24,8 @@ namespace RMDesktopUI.ViewModels
 		public string UserName
 		{
 			get => _userName;
-			set 
-			{ 
+			set
+			{
 				_userName = value;
 				NotifyOfPropertyChange(() => UserName);
 				NotifyOfPropertyChange(() => CanLogIn);
@@ -65,14 +63,13 @@ namespace RMDesktopUI.ViewModels
 		public string ErrorMessage
 		{
 			get { return _errorMessage; }
-			set 
+			set
 			{
 				_errorMessage = value;
 				NotifyOfPropertyChange(() => IsErrorVisible);
 				NotifyOfPropertyChange(() => ErrorMessage);
 			}
 		}
-
 
 		public bool CanLogIn
 		{

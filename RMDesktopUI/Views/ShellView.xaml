@@ -9,14 +9,13 @@
 	<DockPanel>
 		<Menu DockPanel.Dock="Top" FontSize="18">
 			<MenuItem Header="_File">
-				
 			</MenuItem>
 			<MenuItem Header="_Account">
-				<MenuItem x:Name="LoginScreen" Header="_Login"/>
+				<MenuItem x:Name="LoginScreen" Header="_Login" />
 			</MenuItem>
 		</Menu>
 		<Grid>
 			<ContentControl x:Name="ActiveItem" Margin="20 5 20 20" />
-		</Grid>	
-	</DockPanel>    
+		</Grid>
+	</DockPanel>
 </Window>

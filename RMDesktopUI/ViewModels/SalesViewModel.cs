@@ -1,34 +1,50 @@
 ﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
+
+using RMDektopUI.Library.Api;
+using RMDektopUI.Library.Models;
+
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RMDesktopUI.ViewModels
 {
 	public class SalesViewModel : Screen
 	{
-		private BindingList<string> _products;
+		private IProductEndpoint _productEndpoint;
 
-		public BindingList<string> Products
+		public SalesViewModel(IProductEndpoint productEndpoint) => _productEndpoint = productEndpoint;
+
+		protected override async void OnViewLoaded(object view)
 		{
-			get { return _products; }
-			set 
+			base.OnViewLoaded(view);
+			await LoadProducts();
+		}
+
+		private async Task LoadProducts()
+		{
+			var productList = await _productEndpoint.GetAll();
+			Products = new BindingList<ProductModel>(productList);
+		}
+
+		private BindingList<ProductModel> _products;
+
+		public BindingList<ProductModel> Products
+		{
+			get => _products;
+			set
 			{
 				_products = value;
 				NotifyOfPropertyChange(() => Products);
 			}
 		}
 
-		private BindingList<string> _cart;
+		private BindingList<ProductModel> _cart;
 
-		public BindingList<string> Cart
+		public BindingList<ProductModel> Cart
 		{
-			get { return _cart; }
-			set 
-			{ 
+			get => _cart;
+			set
+			{
 				_cart = value;
 				NotifyOfPropertyChange(() => Cart);
 			}
@@ -38,7 +54,7 @@ namespace RMDesktopUI.ViewModels
 
 		public int ItemQuantity
 		{
-			get { return _itemQuantity; }
+			get => _itemQuantity;
 			set
 			{
 				_itemQuantity = value;
@@ -46,32 +62,11 @@ namespace RMDesktopUI.ViewModels
 			}
 		}
 
-		public string SubTotal
-		{
-			get
-			{
-				// TODO - Replace with calculation
-				return "$0.00";
-			}
-		}
+		public string SubTotal => "$0.00";          // TODO - Replace with calculation
 
-		public string Tax
-		{
-			get
-			{
-				// TODO - Replace with calculation
-				return "$0.00";
-			}
-		}
+		public string Tax => "$0.00";       // TODO - Replace with calculation
 
-		public string Total
-		{
-			get
-			{
-				// TODO - Replace with calculation
-				return "$0.00";
-			}
-		}
+		public string Total => "$0.00";         // TODO - Replace with calculation
 
 		public bool CanAddToCart
 		{
@@ -79,8 +74,8 @@ namespace RMDesktopUI.ViewModels
 			{
 				bool output = false;
 
-				// Make sure something is selected 
-				// Make sure there is an item quantity
+				// TODO: Make sure something is selected
+				// TODO: Make sure there is an item quantity
 
 				return output;
 			}
@@ -88,7 +83,6 @@ namespace RMDesktopUI.ViewModels
 
 		public void AddToCart()
 		{
-
 		}
 
 		public bool CanRemoveFromCart
@@ -97,7 +91,7 @@ namespace RMDesktopUI.ViewModels
 			{
 				bool output = false;
 
-				// Make sure something is selected 
+				// TODO: Make sure something is selected
 
 				return output;
 			}
@@ -105,7 +99,6 @@ namespace RMDesktopUI.ViewModels
 
 		public void RemoveFromCart()
 		{
-
 		}
 
 		public bool CanCheckOut
@@ -114,7 +107,7 @@ namespace RMDesktopUI.ViewModels
 			{
 				bool output = false;
 
-				// Make sure there is something in the cart
+				// TODO: Make sure there is something in the cart
 
 				return output;
 			}
@@ -122,7 +115,6 @@ namespace RMDesktopUI.ViewModels
 
 		public void CheckOut()
 		{
-
 		}
 	}
 }
