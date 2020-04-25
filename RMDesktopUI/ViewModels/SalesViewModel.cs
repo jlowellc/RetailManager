@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 
 using RMDektopUI.Library.Api;
+using RMDektopUI.Library.Helpers;
 using RMDektopUI.Library.Models;
 
 using System.ComponentModel;
@@ -11,9 +12,15 @@ namespace RMDesktopUI.ViewModels
 {
 	public class SalesViewModel : Screen
 	{
-		private IProductEndpoint _productEndpoint;
+		IProductEndpoint _productEndpoint;
+		IConfigHelper _configHelper;
 
-		public SalesViewModel(IProductEndpoint productEndpoint) => _productEndpoint = productEndpoint;
+		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
+		{
+			_productEndpoint = productEndpoint;
+			_configHelper = configHelper;
+		}
+
 
 		protected override async void OnViewLoaded(object view)
 		{
@@ -81,20 +88,52 @@ namespace RMDesktopUI.ViewModels
 		{
 			get
 			{
-				decimal subTotal = 0;
-
-				foreach (var item in Cart)
-				{
-					subTotal += (item.Product.RetailPrice * item.QunatityInCart);
-				}
-
-				return subTotal.ToString("C");          // TODO - Replace with calculation
+				return CalculateSubTotal().ToString("C");
 			}
 		}
 
-		public string Tax => "$0.00";       // TODO - Replace with calculation
+		private decimal CalculateSubTotal()
+		{
+			decimal subTotal = 0;
 
-		public string Total => "$0.00";         // TODO - Replace with calculation
+			foreach (var item in Cart)
+			{
+				subTotal += (item.Product.RetailPrice * item.QunatityInCart);
+			}
+			return subTotal;
+		}
+
+		private decimal CalculateTax()
+		{
+			decimal taxAmount = 0;
+			decimal taxRate = _configHelper.GetTaxRate() / 100;
+
+			foreach (var item in Cart)
+			{
+				if (item.Product.IsTaxable)
+				{
+					taxAmount += (item.Product.RetailPrice * item.QunatityInCart * taxRate);
+				}
+			}
+			return taxAmount;
+		}
+
+		public string Tax
+		{
+			get
+			{
+				return CalculateTax().ToString("C");
+			}
+		}
+
+		public string Total
+		{
+			get
+			{
+				decimal total = CalculateSubTotal() + CalculateTax();
+				return total.ToString("C");
+			}
+		}
 
 		public bool CanAddToCart
 		{
@@ -136,6 +175,8 @@ namespace RMDesktopUI.ViewModels
 			SelectedProduct.QuantityInStock -= ItemQuantity;
 			ItemQuantity = 1;
 			NotifyOfPropertyChange(() => SubTotal);
+			NotifyOfPropertyChange(() => Tax);
+			NotifyOfPropertyChange(() => Total);
 		}
 
 		public bool CanRemoveFromCart
@@ -153,6 +194,8 @@ namespace RMDesktopUI.ViewModels
 		public void RemoveFromCart()
 		{
 			NotifyOfPropertyChange(() => SubTotal);
+			NotifyOfPropertyChange(() => Tax);
+			NotifyOfPropertyChange(() => Total);
 		}
 
 		public bool CanCheckOut
