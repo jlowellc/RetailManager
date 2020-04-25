@@ -83,13 +83,7 @@ namespace RMDesktopUI.ViewModels
 			}
 		}
 
-		public string SubTotal
-		{
-			get
-			{
-				return CalculateSubTotal().ToString("C");
-			}
-		}
+		public string SubTotal => CalculateSubTotal().ToString("C");
 
 		private decimal CalculateSubTotal()
 		{
@@ -121,13 +115,7 @@ namespace RMDesktopUI.ViewModels
 			return taxAmount;
 		}
 
-		public string Tax
-		{
-			get
-			{
-				return CalculateTax().ToString("C");
-			}
-		}
+		public string Tax => CalculateTax().ToString("C");
 
 		public string Total
 		{

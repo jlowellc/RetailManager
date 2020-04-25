@@ -13,7 +13,10 @@ namespace RMDektopUI.Library.Api
 	{
 		private IAPIHelper _apiHelper;
 
-		public ProductEndpoint(IAPIHelper apiHelper) => _apiHelper = apiHelper;
+		public ProductEndpoint(IAPIHelper apiHelper)
+		{
+			_apiHelper = apiHelper;
+		}
 
 		public async Task<List<ProductModel>> GetAll()
 		{

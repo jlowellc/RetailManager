@@ -62,7 +62,7 @@ namespace RMDesktopUI.ViewModels
 
 		public string ErrorMessage
 		{
-			get { return _errorMessage; }
+			get => _errorMessage;
 			set
 			{
 				_errorMessage = value;

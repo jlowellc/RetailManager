@@ -40,14 +40,8 @@ namespace RMDataManager.Controllers
 
 		public ApplicationUserManager UserManager
 		{
-			get
-			{
-				return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-			}
-			private set
-			{
-				_userManager = value;
-			}
+			get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+			private set => _userManager = value;
 		}
 
 		public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
@@ -387,10 +381,7 @@ namespace RMDataManager.Controllers
 
 		#region Helpers
 
-		private IAuthenticationManager Authentication
-		{
-			get { return Request.GetOwinContext().Authentication; }
-		}
+		private IAuthenticationManager Authentication => Request.GetOwinContext().Authentication;
 
 		private IHttpActionResult GetErrorResult(IdentityResult result)
 		{
